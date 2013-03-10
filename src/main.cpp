@@ -9,12 +9,13 @@
 #include <iostream>
 #include "lib\lib.h"
 #include "function.h"
+#include "form\form.h"
 
 using namespace std;
 
 
 /*  Make the class name into a global variable  */
-char szClassName[ ] = "SMO";
+//char szClassName[ ] = "SMO";
 HINSTANCE hInst;
 //хендлы кнопок и надписей
 //HWND hTimeWork, hButtonStart, hButtonStop, hstat1,hStatCurrentDay,hStatCurrentHour;
@@ -28,6 +29,7 @@ Valve *pSK1;
 Valve *pSK2;
 Collection *pCollection;
 Time *pTime;
+Form *SMOForm;
 int NextTimeQuery;
 
 /*  Declare Windows procedure  */
@@ -265,23 +267,25 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 //Главная функция
 int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszArgument,int nFunsterStil)
 {
-    HWND hwnd;               /* This is the handle for our window */
     MSG messages;            /* Here messages to the application are saved */
-    WNDCLASSEX wincl;        /* Data structure for the windowclass */
-    /* Run the message loop. It will run until GetMessage() returns 0 */
+
+    SMOForm=new Form(hThisInstance,"SMO");
+    SMOForm->setTitle("Система массового обслуживания");
+    SMOForm->CreateForm();
 
     system("cls");
 
     InitSMO(6);
 
     cout<<Rus("Введите количество запросов на обмен:");
-    //cin>>CountQuery;
-    CountQuery=30;
+    cin>>CountQuery;
+    //CountQuery=30;
 
     system("cls");
 
     hTimer=SetTimer(NULL,0, 50, &TimerProc); //запуск таймера
 
+    /* Run the message loop. It will run until GetMessage() returns 0 */
     while (GetMessage (&messages, NULL, 0, 0))
     {
         /* Translate virtual-key messages into character messages */
@@ -313,7 +317,7 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     	break;
     	case WM_DESTROY:
     		KillTimer(hwnd,hTimer);
-    		//hTimer=NULL;
+    		delete SMOForm;
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
         default:                      /* for messages that we don't deal with */
