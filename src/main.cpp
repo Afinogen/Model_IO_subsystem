@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include "lib\lib.h"
+#include "function.h"
 
 using namespace std;
 
@@ -32,18 +33,6 @@ int NextTimeQuery;
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 
-//Функция руссификации текста для консоли
-string Rus(const char *text)
-{
-  char *buffer=new char[strlen(text)+1];
-  if (NULL == buffer)
-  return "";
-  AnsiToOem(text,buffer);
-  string result(buffer);
-  delete[] buffer;
-  return result;
-}
-
 void InitSMO(int CountNMD)
 {
 	pTurn=new Turn();
@@ -66,20 +55,6 @@ void ClearSMO()
 	delete pSK2;
 	delete pCollection;
 	delete pTime;
-}
-
-void setCursosPosition(int x, int y)
-{
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);  //получения хендла консоли
-	COORD cor = {x,y};       //коордионаты вывода на консоль
-	SetConsoleCursorPosition(hConsole,cor);
-}
-
-double CutNumderDouble(double num, int pos)
-{
-	double degree=(pow(10,pos));
-	int new_num=num*degree;
-	return static_cast<double>(new_num)/static_cast<double>(degree);
 }
 
 //Функция таймера
@@ -258,8 +233,8 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 	double load_sk1=(static_cast<double>(pSK1->GetTime())/static_cast<double>(pTime->GetTime()))*100;
 	double load_sk2=(static_cast<double>(pSK2->GetTime())/static_cast<double>(pTime->GetTime()))*100;
 
-	cout<<Rus("Загрузка СК1: ")<<CutNumderDouble(load_sk1,2)<<"%"<<endl;
-	cout<<Rus("Загрузка СК2: ")<<CutNumderDouble(load_sk2,2)<<"%"<<endl;
+	cout<<Rus("Загрузка СК1: ")<<CutNumderDouble(load_sk1,2)<<"%	"<<endl;
+	cout<<Rus("Загрузка СК2: ")<<CutNumderDouble(load_sk2,2)<<"%	"<<endl;
 
 	cout<<Rus("Загрузка НМД")<<endl;
 	double load_nmd1=(static_cast<double>(pSubjectDrive->GetCanal(0)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
