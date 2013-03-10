@@ -40,3 +40,12 @@ void Collection::PutToContainer(int id_container, Client *pClient)
 	collection_[id_container]->PutToContainer(pClient);
 }
 
+int Collection::GetAllTimeClinetInSystem() const
+{
+	int time=0;
+	for(unsigned int i=0;i<collection_.size();i++)
+		for(unsigned int j=0;j<collection_[i]->SizeContainer();j++)
+			time+=collection_[i]->GetData(j)->GetTimeInSystem();
+	return time;
+}
+

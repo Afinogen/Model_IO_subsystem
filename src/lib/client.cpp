@@ -60,12 +60,9 @@ int Client::GetType() const
 	return type_;
 }
 
-/*//Добавление заявки
-Client *Client::NewClient(int id, int prioritet, int type)
+int Client::GetTimeInSystem() const
 {
-	Client *NDeclarate=new Client(prioritet,type);
-	NDeclarate->id_=id;
-	return NDeclarate;
-}*/
+	return time_in_system_;
+}
 
 

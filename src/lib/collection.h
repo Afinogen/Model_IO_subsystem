@@ -20,6 +20,7 @@ class Collection: virtual public Container
 		int GetCountAllClient() const;
 		const Container* GetContainer(int num) const;
 		void PutToContainer(int id_container, Client *pClient);
+		int GetAllTimeClinetInSystem() const;
 	private:
 		vector<Container*> collection_;
  };

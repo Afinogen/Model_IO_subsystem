@@ -275,6 +275,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 	double load_nmd6=(static_cast<double>(pSubjectDrive->GetCanal(5)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
 	cout<<Rus("НМД6 ")<<CutNumderDouble(load_nmd6,2)<<"%	"<<endl;
 	cout<<Rus("Среднее время обслуживания заппроса: ");
+	cout<<static_cast<int>(pCollection->GetAllTimeClinetInSystem()/pCollection->GetCountAllClient());
 
 	if (CountQuery<=0 && pTurn->SizeContainer()==0 && pSubjectDrive->GetAllStateCanal()==false) //конец симуляции
 		{
