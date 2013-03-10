@@ -9,6 +9,7 @@
 #define FORM_H_
 
 #include <windows.h>
+#include "button.h"
 
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 

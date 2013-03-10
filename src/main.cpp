@@ -10,6 +10,7 @@
 #include "lib\lib.h"
 #include "function.h"
 #include "form\form.h"
+//#include "form\button.h"
 
 using namespace std;
 
@@ -269,9 +270,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 {
     MSG messages;            /* Here messages to the application are saved */
 
-    SMOForm=new Form(hThisInstance,"SMO");
+    /*SMOForm=new Form(hThisInstance,"SMO");
     SMOForm->setTitle("Система массового обслуживания");
     SMOForm->CreateForm();
+
+    //Button *b=new Button(hThisInstance,SMOForm->GetHWND(),"test");*/
 
     system("cls");
 
