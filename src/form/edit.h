@@ -15,6 +15,7 @@ class Edit: public Element
 	public:
 		Edit(HINSTANCE hInst, HWND hwnd, char *caption);
 		~Edit();
+		void CreateEdit(int x1, int y1, int x2, int y2);
 	private:
 };
 

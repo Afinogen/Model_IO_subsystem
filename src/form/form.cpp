@@ -9,12 +9,13 @@
 
 Form::Form(HINSTANCE hThisInstance,char *szClassName)
 {
-	hThisInstance_=hThisInstance;
+	hInstance_=hThisInstance;
 	szClassName_=new char[1];
 	szClassName_[0]='\0';
 	strcpy(szClassName_,szClassName);
-	title_=new char[1];
-	title_[0]='\0';
+	title_=NULL;
+	//title_=new char[1];
+	//title_[0]='\0';
 	hwnd_=NULL;
 }
 
@@ -27,7 +28,7 @@ Form::~Form()
 bool Form::CreateForm()
 {
 	/* The Window structure */
-	wincl_.hInstance = hThisInstance_;
+	wincl_.hInstance = hInstance_;
 	wincl_.lpszClassName = szClassName_;
 	wincl_.lpfnWndProc = WindowProcedure;      /* This function is called by windows */
 	wincl_.style = CS_DBLCLKS;                 /* Catch double-clicks */
@@ -65,10 +66,10 @@ bool Form::CreateForm()
 		   CW_USEDEFAULT,       /* Windows decides the position */
 		   CW_USEDEFAULT,       /* where the window ends up on the screen */
 		   544,                 /* The programs width */
-		   375,                 /* and height in pixels */
+		   640,                 /* and height in pixels */
 		   HWND_DESKTOP,        /* The window is a child-window to desktop */
 		   NULL,                /* No menu */
-		   hThisInstance_,       /* Program Instance handler */
+		   hInstance_,       /* Program Instance handler */
 		   NULL                 /* No Window Creation data */
 		   );
 
@@ -78,10 +79,16 @@ bool Form::CreateForm()
 }
 void Form::setTitle(char *title)
 {
-	strcpy(title_,title);
+	//strcpy(title_,title);
+	title_=title;
 }
 
 HWND Form::GetHWND() const
 {
 	return hwnd_;
+}
+
+HINSTANCE Form::GetHInstance() const
+{
+	return hInstance_;
 }

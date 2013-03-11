@@ -17,10 +17,11 @@ Button::~Button()
 
 }
 
-void Button::CreateButton()
+void Button::CreateButton(int x1, int y1, int x2, int y2)
 {
+	setPosition(x1,y1,x2,y2);
 	setHWNDElement(CreateWindowEx(0, "BUTTON", GetCaption(), BS_PUSHBUTTON|
-				WS_VISIBLE|WS_CHILD|WS_TABSTOP, 70, 55, 60, 25, GetHWNDForm(),
+				WS_VISIBLE|WS_CHILD|WS_TABSTOP, x1, y1, x2, y2, GetHWNDForm(),
 				NULL, GetHInstance(), NULL));
 }
 

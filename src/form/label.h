@@ -15,6 +15,7 @@ class Label: public Element
 	public:
 		Label(HINSTANCE hInst, HWND hwnd, char *caption);
 		~Label();
+		void CreateLabel(int x1, int y1, int x2, int y2);
 	private:
 };
 

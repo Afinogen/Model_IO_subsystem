@@ -9,18 +9,11 @@
 #include <iostream>
 #include "lib\lib.h"
 #include "function.h"
-#include "form\form.h"
-//#include "form\button.h"
+
 
 using namespace std;
 
 
-/*  Make the class name into a global variable  */
-//char szClassName[ ] = "SMO";
-HINSTANCE hInst;
-//хендлы кнопок и надписей
-//HWND hTimeWork, hButtonStart, hButtonStop, hstat1,hStatCurrentDay,hStatCurrentHour;
-//HWND hCivilCar,hPolicCar,hGarazh,hAllCountCivilCar,hAllCountPolicCar;
 UINT_PTR hTimer=NULL;     //указатель на таймер
 int CountQuery;
 Turn *pTurn;
@@ -30,11 +23,8 @@ Valve *pSK1;
 Valve *pSK2;
 Collection *pCollection;
 Time *pTime;
-Form *SMOForm;
-int NextTimeQuery;
 
-/*  Declare Windows procedure  */
-LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
+int NextTimeQuery;
 
 void InitSMO(int CountNMD)
 {
@@ -71,15 +61,26 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 		NextTimeQuery=GetRand(1,20);
 	}
 	cout<<Rus("Кол-во заявок: ")<<CountQuery<<"	"<<Rus("Заявок в очереди: ")<<pTurn->SizeContainer()<<"		";
+	string str;
+	str.append(IntToChar(CountQuery));
+	pEditCountQuery->setCaption(str.c_str());
+	str="Заявок в очереди: ";
+	str.append(IntToChar(pTurn->SizeContainer()));
+	pLabelCountQueryTrun->setCaption(str.c_str());
 
 	cout<<endl;
 	if (pSK1->GetState()!=-1)
 	{
 		cout<<Rus("СК 1: занят НМД")<<(pSK1->GetState()+1)<<"	";
+		str="СК 1: занят НМД";
+		str.append(IntToChar(pSK1->GetState()+1));
+		pLabelSK1->setCaption(str.c_str());
 	}
 	else
 	{
 		cout<<Rus("СК 1: свободен	");
+		pLabelSK1->setCaption("СК 1: свободен");
+
 		if (pTurn->SizeContainer()>0)
 		{
 			Client *pClient=NULL;
@@ -98,6 +99,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 				pTurn->DelFrom(pClient);
 				pSubjectDrive->GetCanal(pClient->GetPrioritet())->setClient(pClient,GetRand(1,30));
 				cout<<Rus("СК 1: занят		");
+				pLabelSK1->setCaption("СК 1: занят");
 				pSK1->setState(-1);
 			}
 
@@ -108,11 +110,15 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 	{
 		setCursosPosition(24,1);
 		cout<<Rus("СК 2: занят НМД")<<(pSK2->GetState()+1)<<"	";
+		str="СК 2: занят НМД";
+		str.append(IntToChar(pSK2->GetState()+1));
+		pLabelSK2->setCaption(str.c_str());
 	}
 	else
 	{
 		setCursosPosition(24,1);
 		cout<<Rus("СК 2: свободен	");
+		pLabelSK2->setCaption("СК 2: свободен");
 		if (pTurn->SizeContainer()>0)
 		{
 				Client *pClient=NULL;
@@ -131,6 +137,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 					pTurn->DelFrom(pClient);
 					pSubjectDrive->GetCanal(pClient->GetPrioritet())->setClient(pClient,GetRand(1,30));
 					cout<<Rus("СК 2: занят	");
+					pLabelSK2->setCaption("СК 2: занят");
 					pSK2->setState(-1);
 				}
 
@@ -144,12 +151,24 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 			<<Rus("	НМД4 ")<<pSubjectDrive->GetCanal(3)->GetState()
 			<<Rus("	НМД5 ")<<pSubjectDrive->GetCanal(4)->GetState()
 			<<Rus("	НМД6 ")<<pSubjectDrive->GetCanal(5)->GetState()<<endl;
+
 	cout<<pSubjectDrive->GetCanal(0)->GetTimeStop()<<"	";
+	pLabelTimeNMD1->setCaption(IntToChar(pSubjectDrive->GetCanal(0)->GetTimeStop()));
+
 	cout<<pSubjectDrive->GetCanal(1)->GetTimeStop()<<"	";
+	pLabelTimeNMD2->setCaption(IntToChar(pSubjectDrive->GetCanal(1)->GetTimeStop()));
+
 	cout<<pSubjectDrive->GetCanal(2)->GetTimeStop()<<"	";
+	pLabelTimeNMD3->setCaption(IntToChar(pSubjectDrive->GetCanal(2)->GetTimeStop()));
+
 	cout<<pSubjectDrive->GetCanal(3)->GetTimeStop()<<"	";
+	pLabelTimeNMD4->setCaption(IntToChar(pSubjectDrive->GetCanal(3)->GetTimeStop()));
+
 	cout<<pSubjectDrive->GetCanal(4)->GetTimeStop()<<"	";
+	pLabelTimeNMD5->setCaption(IntToChar(pSubjectDrive->GetCanal(4)->GetTimeStop()));
+
 	cout<<pSubjectDrive->GetCanal(5)->GetTimeStop()<<"	";
+	pLabelTimeNMD6->setCaption(IntToChar(pSubjectDrive->GetCanal(5)->GetTimeStop()));
 
 	pSubjectDrive->DecTimeCanal();
 	NextTimeQuery--;
@@ -182,12 +201,6 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 			pSubjectDrive->GetCanal(pSK1->GetState())->DelClient();
 			pSK1->setState(-1);
 		}
-		else if (pSubjectDrive->GetCanal(pSK1->GetState())->GetTimeStop()==0)
-		{
-			cout<<endl<<"CK1 "<<pSK1->GetState()<<" "<<pSubjectDrive->GetCanal(pSK1->GetState())->GetClient()->GetType();
-			system("pause");
-		}
-
 	}
 
 	if (pSK2->GetState()==-1)
@@ -218,26 +231,36 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 			pSubjectDrive->GetCanal(pSK2->GetState())->DelClient();
 			pSK2->setState(-1);
 		}
-		else if (pSubjectDrive->GetCanal(pSK2->GetState())->GetTimeStop()==0)
-		{
-			cout<<endl<<"CK2 "<<pSK2->GetState()<<" "<<pSubjectDrive->GetCanal(pSK2->GetState())->GetClient()->GetType();
-			system("pause");
-		}
 	}
 
 
 	cout<<endl<<endl<<Rus("Обработано заявок: ")<<pCollection->GetCountAllClient();
+	str="Обработано заявок: ";
+	str.append(IntToChar(pCollection->GetCountAllClient()));
+	pLabelCollectionClient->setCaption(str.c_str());
 
 	pTime->IncTime();
 	if (pSK1->GetState()!=-1) pSK1->IncTime();
 	if (pSK2->GetState()!=-1) pSK2->IncTime();
 	cout<<endl<<Rus("Общее время работы: ")<<pTime->GetTime()<<endl;
+	str="Общее время работы: ";
+	str.append(IntToChar(pTime->GetTime()));
+	pLabelTimeWork->setCaption(str.c_str());
 
-	double load_sk1=(static_cast<double>(pSK1->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	double load_sk2=(static_cast<double>(pSK2->GetTime())/static_cast<double>(pTime->GetTime()))*100;
+	double load_sk1=CutNumderDouble((static_cast<double>(pSK1->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	double load_sk2=CutNumderDouble((static_cast<double>(pSK2->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
 
-	cout<<Rus("Загрузка СК1: ")<<CutNumderDouble(load_sk1,2)<<"%	"<<endl;
-	cout<<Rus("Загрузка СК2: ")<<CutNumderDouble(load_sk2,2)<<"%	"<<endl;
+	cout<<Rus("Загрузка СК1: ")<<load_sk1<<"%	"<<endl;
+	str="Загрузка СК1:  ";
+	str.append(DoubleToChar(load_sk1));
+	str.append("%");
+	pLabelLoadSK1->setCaption(str.c_str());
+
+	cout<<Rus("Загрузка СК2: ")<<load_sk2<<"%	"<<endl;
+	str="Загрузка СК2:  ";
+	str.append(DoubleToChar(CutNumderDouble(load_sk2,1)));
+	str.append("%");
+	pLabelLoadSK2->setCaption(str.c_str());
 
 	cout<<Rus("Загрузка НМД")<<endl;
 	double load_nmd1=(static_cast<double>(pSubjectDrive->GetCanal(0)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
@@ -270,19 +293,15 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 {
     MSG messages;            /* Here messages to the application are saved */
 
-    /*SMOForm=new Form(hThisInstance,"SMO");
-    SMOForm->setTitle("Система массового обслуживания");
-    SMOForm->CreateForm();
-
-    //Button *b=new Button(hThisInstance,SMOForm->GetHWND(),"test");*/
+    InitForm(hThisInstance);
 
     system("cls");
 
     InitSMO(6);
 
     cout<<Rus("Введите количество запросов на обмен:");
-    cin>>CountQuery;
-    //CountQuery=30;
+    //cin>>CountQuery;
+    CountQuery=30;
 
     system("cls");
 
@@ -320,7 +339,8 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     	break;
     	case WM_DESTROY:
     		KillTimer(hwnd,hTimer);
-    		delete SMOForm;
+    		//delete pFormSMO;
+    		DestroyForm();
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
         default:                      /* for messages that we don't deal with */

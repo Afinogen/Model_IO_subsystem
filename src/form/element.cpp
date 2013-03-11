@@ -12,7 +12,7 @@ Element::Element(HINSTANCE hInst, HWND hwnd, char *caption)
 	form_=hwnd;
 	element_=NULL;
 	hInst_=hInst;
-	caption_=new char[1];
+	caption_=new char[strlen(caption)+1];
 	caption_[0]='\0';
 	strcpy(caption_,caption);
 	x1_=0;
@@ -26,9 +26,10 @@ Element::~Element()
 	delete caption_;
 }
 
-void Element::setCaption(char *caption)
+void Element::setCaption(const char *caption)
 {
 	strcpy(caption_,caption);
+	if (element_!=NULL) SetWindowText(element_,caption_);
 }
 
 void Element::setPosition(int x1, int y1, int x2, int y2)

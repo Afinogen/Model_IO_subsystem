@@ -15,7 +15,7 @@ class Button: public Element
 	public:
 		Button(HINSTANCE hInst, HWND hwnd, char *caption);
 		~Button();
-		void CreateButton();
+		void CreateButton(int x1, int y1, int x2, int y2);
 	private:
 
 };
