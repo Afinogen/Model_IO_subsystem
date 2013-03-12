@@ -325,6 +325,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 			KillTimer(hWnd,hTimer);
 			hTimer=NULL;
 			ClearSMO();
+			pButtonStartPause->setCaption("Старт");
 			//PostQuitMessage (0);
 		}
 
