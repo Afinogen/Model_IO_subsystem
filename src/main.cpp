@@ -323,6 +323,7 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 	if (CountQuery<=0 && pTurn->SizeContainer()==0 && pSubjectDrive->GetAllStateCanal()==false) //конец симуляции
 		{
 			KillTimer(hWnd,hTimer);
+			hTimer=NULL;
 			ClearSMO();
 			//PostQuitMessage (0);
 		}
@@ -406,8 +407,8 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     				Sleep(100);
     				hTimer=NULL;
     				ClearSMO();
-    				pButtonStartPause->setCaption("Старт");
     			}
+    			pButtonStartPause->setCaption("Старт");
     		}
 
     	break;
