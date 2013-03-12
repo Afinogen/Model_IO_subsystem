@@ -46,9 +46,9 @@ void ClearSMO()
 	start=false;
 	delete pTurn;
 	delete pGenerator;
-	delete pSubjectDrive;
 	delete pSK1;
 	delete pSK2;
+	delete pSubjectDrive;
 	delete pCollection;
 	delete pTime;
 }
@@ -338,6 +338,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
     InitForm(hThisInstance,nFunsterStil);
 
     system("cls");
+    //ShowWindow(GetConsoleWindow(),SW_HIDE);
     //System:: //:Console::Write( L"Hola " );
     //InitSMO(6);
 
@@ -399,11 +400,14 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     		}
     		if ((HWND)lParam == pButtonStop->GetHWNDElement())
     		{
-    			KillTimer(hwnd,hTimer);
-    			Sleep(100);
-    			hTimer=NULL;
-    			ClearSMO();
-    			pButtonStartPause->setCaption("Старт");
+    			if (hTimer!=NULL)
+    			{
+    				KillTimer(hwnd,hTimer);
+    				Sleep(100);
+    				hTimer=NULL;
+    				ClearSMO();
+    				pButtonStartPause->setCaption("Старт");
+    			}
     		}
 
     	break;
