@@ -75,12 +75,14 @@ void InitLabel();
 
 void InitEdit();
 
-bool InitForm(HINSTANCE hThisInstance);
+bool InitForm(HINSTANCE hThisInstance,int nFunsterStil);
 
 void DestroyForm();
 
 char *IntToChar(int num);
 
 char *DoubleToChar(double num);
+
+int CharToInt(const char *str);
 
 #endif /* FUNCTION_H_ */

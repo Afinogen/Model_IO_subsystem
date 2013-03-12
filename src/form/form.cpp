@@ -7,7 +7,7 @@
 
 #include "form.h"
 
-Form::Form(HINSTANCE hThisInstance,char *szClassName)
+Form::Form(HINSTANCE hThisInstance,char *szClassName,int nFunsterStil)
 {
 	hInstance_=hThisInstance;
 	szClassName_=new char[1];
@@ -17,6 +17,7 @@ Form::Form(HINSTANCE hThisInstance,char *szClassName)
 	//title_=new char[1];
 	//title_[0]='\0';
 	hwnd_=NULL;
+	nFunsterStil_=nFunsterStil;
 }
 
 Form::~Form()

@@ -69,10 +69,10 @@ double CutNumderDouble(double num, int pos)
 void InitButton()
 {
 	pButtonStartPause=new Button(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Старт");
-	pButtonStartPause->CreateButton(20,50,60,35);
+	pButtonStartPause->CreateButton(20,50,130,35);
 
 	pButtonStop=new Button(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Стоп");
-	pButtonStop->CreateButton(90,50,60,35);
+	pButtonStop->CreateButton(180,50,60,35);
 }
 
 void InitLabel()
@@ -158,7 +158,7 @@ void InitLabel()
 	plabelLoadNMD6=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Загрузка НМД6 0%");
 	plabelLoadNMD6->CreateLabel(10,510,180,20);
 
-	pLabelMidleTimeClinet=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Среднее время обслуживания заппроса: 0");
+	pLabelMidleTimeClinet=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Среднее время обслуживания запроса: 0");
 	pLabelMidleTimeClinet->CreateLabel(10,540,400,20);
 }
 
@@ -168,11 +168,11 @@ void InitEdit()
 	pEditCountQuery->CreateEdit(190,10,50,20);
 }
 
-bool InitForm(HINSTANCE hThisInstance)
+bool InitForm(HINSTANCE hThisInstance,int nFunsterStil)
 {
 	char szClassName[ ] = "SMO";
 
-	pFormSMO=new Form(hThisInstance,szClassName);
+	pFormSMO=new Form(hThisInstance,szClassName,nFunsterStil);
 	pFormSMO->setTitle("Система массового обслуживания");
 	pFormSMO->CreateForm();
 
@@ -180,12 +180,13 @@ bool InitForm(HINSTANCE hThisInstance)
 	InitLabel();
 	InitEdit();
 
+	ShowWindow (pFormSMO->GetHWND(), nFunsterStil);
+
 	return true;
 }
 
 void DestroyForm()
 {
-	delete pFormSMO;
 	delete pButtonStartPause;
 	delete pLabelCountQuery;
 	delete pEditCountQuery;
@@ -216,6 +217,7 @@ void DestroyForm()
 	delete plabelLoadNMD5;
 	delete plabelLoadNMD6;
 	delete pLabelMidleTimeClinet;
+	delete pFormSMO;
 }
 
 char *IntToChar(int num)
@@ -231,7 +233,7 @@ char *DoubleToChar(double num)
 	int decimalNum = (int) ((num - wholeNum) * 100);
 
 	char wholeNumStr[10]={'\0'};
-	char decNumStr[5]={'\0'};
+	char decNumStr[10]={'\0'};
 	char numStr[17]={'\0'};
 	itoa(wholeNum, wholeNumStr, 10);
 	itoa(decimalNum, decNumStr, 10);
@@ -239,4 +241,9 @@ char *DoubleToChar(double num)
 	strcat(numStr, ".");
 	strcat(numStr, decNumStr);
 	return numStr;
+}
+
+int CharToInt(const char *str)
+{
+	return atoi(str);
 }

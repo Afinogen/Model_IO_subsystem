@@ -14,10 +14,10 @@ class Element
 {
 	public:
 		Element(HINSTANCE hInst, HWND hwnd, char *caption);
-		~Element();
+		virtual ~Element();
 		void setCaption(const char *caption);
 		void setPosition(int x1, int y1, int x2, int y2);
-		const char *GetCaption() const;
+		virtual const char *GetCaption() const;
 		HWND GetHWNDForm() const;
 		HWND GetHWNDElement() const;
 		HINSTANCE GetHInstance() const;

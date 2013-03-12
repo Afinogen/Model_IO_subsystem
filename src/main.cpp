@@ -23,7 +23,7 @@ Valve *pSK1;
 Valve *pSK2;
 Collection *pCollection;
 Time *pTime;
-
+bool start;
 int NextTimeQuery;
 
 void InitSMO(int CountNMD)
@@ -37,10 +37,13 @@ void InitSMO(int CountNMD)
 	NextTimeQuery=GetRand(0,20);
 	pCollection=new Collection(1);
 	pTime=new Time();
+	start=true;
+	CountQuery=CharToInt(pEditCountQuery->GetCaption());
 }
 
 void ClearSMO()
 {
+	start=false;
 	delete pTurn;
 	delete pGenerator;
 	delete pSubjectDrive;
@@ -53,6 +56,8 @@ void ClearSMO()
 //Функция таймера
 VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 {
+	if (!start) return;
+
 	setCursosPosition(0,0);
 	if (NextTimeQuery<=0 && CountQuery>0)
 	{
@@ -263,26 +268,63 @@ VOID CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
 	pLabelLoadSK2->setCaption(str.c_str());
 
 	cout<<Rus("Загрузка НМД")<<endl;
-	double load_nmd1=(static_cast<double>(pSubjectDrive->GetCanal(0)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД1 ")<<CutNumderDouble(load_nmd1,2)<<"%	"<<endl;
-	double load_nmd2=(static_cast<double>(pSubjectDrive->GetCanal(1)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД2 ")<<CutNumderDouble(load_nmd2,2)<<"%	"<<endl;
-	double load_nmd3=(static_cast<double>(pSubjectDrive->GetCanal(2)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД3 ")<<CutNumderDouble(load_nmd3,2)<<"%	"<<endl;
-	double load_nmd4=(static_cast<double>(pSubjectDrive->GetCanal(3)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД4 ")<<CutNumderDouble(load_nmd4,2)<<"%	"<<endl;
-	double load_nmd5=(static_cast<double>(pSubjectDrive->GetCanal(4)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД5 ")<<CutNumderDouble(load_nmd5,2)<<"%	"<<endl;
-	double load_nmd6=(static_cast<double>(pSubjectDrive->GetCanal(5)->GetTime())/static_cast<double>(pTime->GetTime()))*100;
-	cout<<Rus("НМД6 ")<<CutNumderDouble(load_nmd6,2)<<"%	"<<endl;
-	cout<<Rus("Среднее время обслуживания заппроса: ");
-	cout<<static_cast<int>(pCollection->GetAllTimeClinetInSystem()/pCollection->GetCountAllClient());
+	double load_nmd1=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(0)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД1 ")<<load_nmd1<<"%	"<<endl;
+	str="НМД1 ";
+	str.append(DoubleToChar(load_nmd1));
+	str.append("%");
+	plabelLoadNMD1->setCaption(str.c_str());
+
+	double load_nmd2=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(1)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД2 ")<<load_nmd2<<"%	"<<endl;
+	str="НМД2 ";
+	str.append(DoubleToChar(load_nmd2));
+	str.append("%");
+	plabelLoadNMD2->setCaption(str.c_str());
+
+	double load_nmd3=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(2)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД3 ")<<load_nmd3<<"%	"<<endl;
+	str="НМД3 ";
+	str.append(DoubleToChar(load_nmd3));
+	str.append("%");
+	plabelLoadNMD3->setCaption(str.c_str());
+
+	double load_nmd4=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(3)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД4 ")<<load_nmd4<<"%	"<<endl;
+	str="НМД4 ";
+	str.append(DoubleToChar(load_nmd4));
+	str.append("%");
+	plabelLoadNMD4->setCaption(str.c_str());
+
+	double load_nmd5=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(4)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД5 ")<<load_nmd5<<"%	"<<endl;
+	str="НМД5 ";
+	str.append(DoubleToChar(load_nmd5));
+	str.append("%");
+	plabelLoadNMD5->setCaption(str.c_str());
+
+	double load_nmd6=CutNumderDouble((static_cast<double>(pSubjectDrive->GetCanal(5)->GetTime())/static_cast<double>(pTime->GetTime()))*100,2);
+	cout<<Rus("НМД6 ")<<load_nmd6<<"%	"<<endl;
+	str="НМД6 ";
+	str.append(DoubleToChar(load_nmd6));
+	str.append("%");
+	plabelLoadNMD6->setCaption(str.c_str());
+
+	cout<<Rus("Среднее время обслуживания запроса: ");
+	if (pCollection->GetAllTimeClinetInSystem()>0)
+		cout<<static_cast<int>(pCollection->GetAllTimeClinetInSystem()/pCollection->GetCountAllClient());
+	else cout<<"0";
+	str="Среднее время обслуживания запроса: ";
+	if (pCollection->GetAllTimeClinetInSystem()>0)
+		str.append(IntToChar(pCollection->GetAllTimeClinetInSystem()/pCollection->GetCountAllClient()));
+	else str.append("0");
+	pLabelMidleTimeClinet->setCaption(str.c_str());
 
 	if (CountQuery<=0 && pTurn->SizeContainer()==0 && pSubjectDrive->GetAllStateCanal()==false) //конец симуляции
 		{
 			KillTimer(hWnd,hTimer);
 			ClearSMO();
-			PostQuitMessage (0);
+			//PostQuitMessage (0);
 		}
 
 	//cout<<endl<<GetNormalDistribution();
@@ -293,19 +335,19 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 {
     MSG messages;            /* Here messages to the application are saved */
 
-    InitForm(hThisInstance);
+    InitForm(hThisInstance,nFunsterStil);
 
     system("cls");
+    //System:: //:Console::Write( L"Hola " );
+    //InitSMO(6);
 
-    InitSMO(6);
-
-    cout<<Rus("Введите количество запросов на обмен:");
+    //cout<<Rus("Введите количество запросов на обмен:");
     //cin>>CountQuery;
-    CountQuery=30;
+    //CountQuery=30;
 
-    system("cls");
+    //system("cls");
 
-    hTimer=SetTimer(NULL,0, 50, &TimerProc); //запуск таймера
+    //hTimer=SetTimer(NULL,0, 50, &TimerProc); //запуск таймера
 
     /* Run the message loop. It will run until GetMessage() returns 0 */
     while (GetMessage (&messages, NULL, 0, 0))
@@ -335,11 +377,45 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     		EndPaint(hwnd, &ps);
         break;
     	case WM_COMMAND:
+    		if ((HWND)lParam == pButtonStartPause->GetHWNDElement() && hTimer==NULL)
+    		{
+    			 InitSMO(6);
+    			 hTimer=SetTimer(NULL,0, 50, &TimerProc);
+    			 pButtonStartPause->setCaption("Пауза");
+    		}
+    		else if ((HWND)lParam == pButtonStartPause->GetHWNDElement() && hTimer!=NULL)
+    		{
+    			 if (start)
+    			 {
+    				 start=false;
+    				 pButtonStartPause->setCaption("Продолжить");
+    			 }
+    			 else
+    			 {
+    				 start=true;
+    				 pButtonStartPause->setCaption("Пауза");
+    			 }
+
+    		}
+    		if ((HWND)lParam == pButtonStop->GetHWNDElement())
+    		{
+    			KillTimer(hwnd,hTimer);
+    			Sleep(100);
+    			hTimer=NULL;
+    			ClearSMO();
+    			pButtonStartPause->setCaption("Старт");
+    		}
 
     	break;
+    	case WM_CLOSE:
+    		if (hTimer!=NULL) KillTimer(hwnd,hTimer);
+    		//DestroyForm();
+    		//hTimer=NULL;
+    		//ClearSMO();
+    		PostQuitMessage (0);
+    	break;
     	case WM_DESTROY:
-    		KillTimer(hwnd,hTimer);
-    		//delete pFormSMO;
+    		if (hTimer!=NULL) KillTimer(hwnd,hTimer);
     		DestroyForm();
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;

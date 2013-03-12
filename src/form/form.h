@@ -18,7 +18,7 @@ LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
 class Form
 {
 	public:
-		Form(HINSTANCE hThisInstance,char *szClassName);
+		Form(HINSTANCE hThisInstance,char *szClassName,int nFunsterStil);
 		~Form();
 		bool CreateForm();
 		void setTitle(char *title);
@@ -30,6 +30,7 @@ class Form
 		char *szClassName_;
 		HWND hwnd_;               /* This is the handle for our window */
 		char *title_;
+		int nFunsterStil_;
 };
 
 

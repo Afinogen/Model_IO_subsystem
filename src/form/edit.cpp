@@ -25,5 +25,9 @@ void Edit::CreateEdit(int x1, int y1, int x2, int y2)
 				NULL, GetHInstance(), NULL));
 }
 
-
-
+const char *Edit::GetCaption() const
+{
+	char str[255]={'\0'};
+	GetWindowText(GetHWNDElement(),str,255);
+	return str;
+}
