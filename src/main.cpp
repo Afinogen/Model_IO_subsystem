@@ -339,11 +339,13 @@ int WINAPI WinMain (HINSTANCE hThisInstance,HINSTANCE hPrevInstance,LPSTR lpszAr
 
     InitForm(hThisInstance,nFunsterStil);
 
-    system("cls");
-    //ShowWindow(GetConsoleWindow(),SW_HIDE);
-    //System:: //:Console::Write( L"Hola " );
-    //InitSMO(6);
+    CONSOLE_SCREEN_BUFFER_INFO info; // Для получения текущей позиции курсора
 
+    HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); // Это ты знаешь, зачем
+    GetConsoleScreenBufferInfo(hCon, &info); // Получаем информацию о позиции курсора
+
+    if (info.dwCursorPosition.Y==0) FreeConsole();
+    else system("cls");
     //cout<<Rus("Введите количество запросов на обмен:");
     //cin>>CountQuery;
     //CountQuery=30;
