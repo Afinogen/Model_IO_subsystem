@@ -69,20 +69,28 @@ void setCursosPosition(short x, short y);
 //Обрезание кол-ва цифр после запятой
 double CutNumderDouble(double num, int pos);
 
+//Создание кнопок на форме
 void InitButton();
 
+//Создание статического текста на форме
 void InitLabel();
 
+//Создание полей ввода на форме
 void InitEdit();
 
+//Создание формы
 bool InitForm(HINSTANCE hThisInstance,int nFunsterStil);
 
+//Уничтожение формы
 void DestroyForm();
 
+//Перевод из int в char*
 char *IntToChar(int num);
 
+//Перевод из double в char*
 char *DoubleToChar(double num);
 
+//Перевод из char* в int
 int CharToInt(const char *str);
 
 #endif /* FUNCTION_H_ */

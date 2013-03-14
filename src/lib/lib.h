@@ -8,7 +8,6 @@
 #ifndef LIB_H_
 #define LIB_H_
 
-//#include <vector>
 #include "client.h"
 #include "container.h"
 #include "treat_client.h"
@@ -21,7 +20,5 @@
 #include "time.h"
 
 #include "random.h"
-
-//using namespace std;
 
 #endif /* LIB_H_ */

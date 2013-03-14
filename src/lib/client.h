@@ -20,14 +20,14 @@ class Client
    void IncrimentTIE(); //Инкремент времени в элементе
    void setType(int type);	//Установка типа заявки
    int GetType() const;		//Получение типа заявки
-   int GetTimeInSystem() const;
+   int GetTimeInSystem() const;	//получение времени проведенного в системе
   private:
-   int id_;
-   int prioritet_;
-   int type_;
-   int time_gen_;
-   int time_in_system_;
-   int time_in_element_;
+   int id_;		//Номер заявки
+   int prioritet_;	//Приоритет
+   int type_;		//Тип
+   int time_gen_;	//Время создания
+   int time_in_system_;	//Время проведенное в системе
+   int time_in_element_;	//Время проведенное в элементе системы
  };
 
 

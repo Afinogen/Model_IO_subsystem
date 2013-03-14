@@ -20,16 +20,16 @@ class Canal: public Time
 	public:
 		Canal();
 		~Canal();
-		int GetTimeStop() const;
-		void DecTimeS();
-		void setTimeStop(int time);
-		bool setClient(Client *pClient, int time);
-		Client *GetClient() const;
-		void DelClient();
-		bool GetState() const;
+		int GetTimeStop() const; //получение времени обработки заявки
+		void DecTimeS();	//уменьшение времени обработки
+		void setTimeStop(int time); //установка времени обработки
+		bool setClient(Client *pClient, int time); //добавление в канал заявки и время ее обработки
+		Client *GetClient() const; //получение заявки находящейся в обработке
+		void DelClient();	//удаление заявки из канала
+		bool GetState() const; //Получение состояния канала
 	private:
-		Client *client_;
-		int time_;
+		Client *client_;	//заявка на обработку
+		int time_;	//время обработки
 
 };
 

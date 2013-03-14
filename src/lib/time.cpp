@@ -7,6 +7,7 @@
 
 #include "time.h"
 
+//Конструктор таймера
 Time::Time()
 {
 	time_=0;
@@ -16,12 +17,12 @@ Time::~Time()
 {
 
 }
-
+//Инкримет таймера
 void Time::IncTime()
 {
 	time_++;
 }
-
+//Получение текущего состояния тацмера
 unsigned int Time::GetTime() const
 {
 	return time_;

@@ -11,17 +11,18 @@
 #include <vector>
 #include "canal.h"
 
+//Субъект управления
 class SubjectDrive
 {
 	public:
 		SubjectDrive();
 		~SubjectDrive();
-		void CreateCanal(int count);
-		Canal *GetCanal(int idx) const;
-		void DecTimeCanal();
-		bool GetAllStateCanal() const;
+		void CreateCanal(int count);	//Создание каналов
+		Canal *GetCanal(unsigned int idx) const;	//Получение канала
+		void DecTimeCanal();			//Уменьшение времени обработки заявки в канале
+		bool GetAllStateCanal() const;	//Получение состояния каналов
 	private:
-		vector<Canal*> array_canal_;
+		vector<Canal*> array_canal_;	//массив каналов
 
 };
 

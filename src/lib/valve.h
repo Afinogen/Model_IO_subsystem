@@ -17,8 +17,8 @@ class Valve: public Time
 	public:
 		Valve(SubjectDrive*);
 		~Valve();
-		void setState(int state);
-		int GetState() const;
+		void setState(int state);	//Установка состояния клапана
+		int GetState() const;	//Получение состояния клапана
 	private:
 		SubjectDrive *subject_drive_;
 		int state_;

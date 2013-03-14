@@ -16,10 +16,9 @@ class Generator: public TreatClient
   public:
    Generator();
    ~Generator();
-   bool procces;
-   Client *CreateClient(int,int);
+   Client *CreateClient(int,int);	//Создание заявки
   private:
-  	int count_gen_client_;
+  	int count_gen_client_;	//Кол-во созданных заявок
  };
 
 

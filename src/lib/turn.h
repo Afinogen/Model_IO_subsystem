@@ -16,8 +16,8 @@ class Turn: public Container
 	public:
 		Turn();
 		~Turn();
-		Client *GetLastClient() const;
-		Client *GetFirstClient() const;
+		Client *GetLastClient() const;	//получение последней заявки
+		Client *GetFirstClient() const;	//Получение первой заявки
 	private:
 };
 

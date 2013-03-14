@@ -58,14 +58,14 @@ void setCursosPosition(short x, short y)
 	COORD cor = {x,y};       //коордионаты вывода на консоль
 	SetConsoleCursorPosition(hConsole,cor);
 }
-
+//Обрезание кол-ва цифр после запятой
 double CutNumderDouble(double num, int pos)
 {
 	double degree=(pow(10,pos));
 	int new_num=num*degree;
 	return static_cast<double>(new_num)/static_cast<double>(degree);
 }
-
+//Создание кнопок на форме
 void InitButton()
 {
 	pButtonStartPause=new Button(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Старт");
@@ -74,7 +74,7 @@ void InitButton()
 	pButtonStop=new Button(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Стоп");
 	pButtonStop->CreateButton(180,50,60,35);
 }
-
+//Создание статического текста на форме
 void InitLabel()
 {
 	pLabelCountQuery=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Количество заявок");
@@ -88,9 +88,6 @@ void InitLabel()
 
 	pLabelSK2=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"СК 2: свободен");
 	pLabelSK2->CreateLabel(230,130,180,20);
-
-	/*pLabelDescNMD=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"");
-	pLabelDescNMD->CreateLabel(230,130,180,20);*/
 
 	pLabelDescNMD1=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"НМД1");
 	pLabelDescNMD1->CreateLabel(10,170,60,20);
@@ -161,13 +158,13 @@ void InitLabel()
 	pLabelMidleTimeClinet=new Label(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"Среднее время обслуживания запроса: 0");
 	pLabelMidleTimeClinet->CreateLabel(10,540,400,20);
 }
-
+//Создание полей ввода на форме
 void InitEdit()
 {
 	pEditCountQuery=new Edit(pFormSMO->GetHInstance(),pFormSMO->GetHWND(),"30");
 	pEditCountQuery->CreateEdit(190,10,50,20);
 }
-
+//Создание формы
 bool InitForm(HINSTANCE hThisInstance,int nFunsterStil)
 {
 	char szClassName[ ] = "SMO";
@@ -184,7 +181,7 @@ bool InitForm(HINSTANCE hThisInstance,int nFunsterStil)
 
 	return true;
 }
-
+//Уничтожение формы
 void DestroyForm()
 {
 	delete pButtonStartPause;
@@ -219,14 +216,14 @@ void DestroyForm()
 	delete pLabelMidleTimeClinet;
 	delete pFormSMO;
 }
-
+//Перевод из int в char*
 char *IntToChar(int num)
 {
 	char name[50]={'\0'};
 	itoa(num,name,10);
 	return name;
 }
-
+//Перевод из double в char*
 char *DoubleToChar(double num)
 {
 	int wholeNum = num;
@@ -242,7 +239,7 @@ char *DoubleToChar(double num)
 	strcat(numStr, decNumStr);
 	return numStr;
 }
-
+//Перевод из char* в int
 int CharToInt(const char *str)
 {
 	return atoi(str);

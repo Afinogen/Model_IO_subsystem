@@ -10,8 +10,6 @@
 //Конструктор генератора
 Generator::Generator()
 {
-	//pGenerator=NULL;
-	procces=false;
 	count_gen_client_=0;
 }
 

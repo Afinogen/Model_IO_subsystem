@@ -7,7 +7,7 @@
 
 #include "container.h"
 
-//
+//Конструктор контейнера
 Container::Container()
 {
 }
@@ -41,7 +41,7 @@ void Container::DelFrom(Client *data)
 }
 
 //Получение размера контейнера
-int Container::SizeContainer() const
+unsigned int Container::SizeContainer() const
 {
 	return data_.size();
 }

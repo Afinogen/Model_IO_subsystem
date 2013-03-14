@@ -17,12 +17,12 @@ class Collection: virtual public Container
 	public:
 		Collection(int CountClinet);
 		~Collection();
-		int GetCountAllClient() const;
-		const Container* GetContainer(int num) const;
-		void PutToContainer(int id_container, Client *pClient);
-		int GetAllTimeClinetInSystem() const;
+		int GetCountAllClient() const;	//ѕолучение кол-ва всех за€вок
+		const Container* GetContainer(unsigned int idx) const;	//ѕолучение контейнера с нужным номером
+		void PutToContainer(int id_container, Client *pClient); //ƒобавление за€вки в контейнер
+		int GetAllTimeClinetInSystem() const;	//ѕодсчет общего времени проведенного за€вками в системе
 	private:
-		vector<Container*> collection_;
+		vector<Container*> collection_;	//массив контейнеров
  };
 
 

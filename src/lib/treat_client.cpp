@@ -7,7 +7,7 @@
 
 #include "treat_client.h"
 
-TreatClient::TreatClient()//int type,int prioritet_set):Client(type,prioritet_set)
+TreatClient::TreatClient()
 {
 
 }

@@ -17,12 +17,12 @@ Turn::~Turn()
 {
 
 }
-
+//получение последней заявки
 Client *Turn::GetLastClient() const
 {
 	return GetData(SizeContainer()-1);
 }
-
+//Получение первой заявки
 Client *Turn::GetFirstClient() const
 {
     return GetData(0);

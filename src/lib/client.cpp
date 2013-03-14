@@ -59,7 +59,7 @@ int Client::GetType() const
 {
 	return type_;
 }
-
+//получение времени проведенного в системе
 int Client::GetTimeInSystem() const
 {
 	return time_in_system_;

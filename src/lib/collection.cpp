@@ -20,11 +20,10 @@ Collection::~Collection()
 }
 
 //Получение доступа к одному из контейнеров
-const Container* Collection::GetContainer(int num) const
+const Container* Collection::GetContainer(unsigned int idx) const
 {
-	if (num>collection_.size()) return NULL;
-	else if (num<0) return NULL;
-	return collection_[num];
+	if (idx>=collection_.size()) return NULL;
+	return collection_[idx];
 }
 //Подсчет всех заявок в сборщике
 int Collection::GetCountAllClient() const
@@ -34,12 +33,12 @@ int Collection::GetCountAllClient() const
 		Count+=collection_[i]->SizeContainer();
 	return Count;
 }
-
+//Добавление заявки в контейнер
 void Collection::PutToContainer(int id_container, Client *pClient)
 {
 	collection_[id_container]->PutToContainer(pClient);
 }
-
+//Подсчет общего времени проведенного заявками в системе
 int Collection::GetAllTimeClinetInSystem() const
 {
 	int time=0;

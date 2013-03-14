@@ -18,12 +18,12 @@ Valve::~Valve()
 {
 
 }
-
+//Установка состояния клапана
 void Valve::setState(int state)
 {
 	state_=state;
 }
-
+//Получение состояния клапана
 int Valve::GetState() const
 {
 	return state_;

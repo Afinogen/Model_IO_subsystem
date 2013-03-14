@@ -23,9 +23,9 @@ class Container
    Client *GetData(int id) const;  // »звлечь из контейнера
    void DelFrom(Client *data);     //удаление из контейнера
    void ClearData();               //очистка контейнера
-   int SizeContainer() const;           //–азмер контейнера
+   unsigned int SizeContainer() const;           //–азмер контейнера
   private:
-   vector<Client*> data_;
+   vector<Client*> data_;	//контейнер
  };
 
 

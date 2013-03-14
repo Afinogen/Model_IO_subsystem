@@ -20,8 +20,8 @@ class TreatClient
    TreatClient();
    ~TreatClient();
    const Client *GetClientLost() const;     //получение последней заявки
-   void ClearClient();
-   void AppendClient(Client *Clinet);
+   void ClearClient();	//Удаление всех заявок
+   void AppendClient(Client *Clinet);	//Добавление заявки
    vector<Client> GetVClient();
   private:
      vector<Client> client_; //
