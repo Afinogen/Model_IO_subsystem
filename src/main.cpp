@@ -385,7 +385,7 @@ LRESULT CALLBACK  WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARA
     		if ((HWND)lParam == pButtonStartPause->GetHWNDElement() && hTimer==NULL)
     		{
     			 InitSMO(6);
-    			 hTimer=SetTimer(NULL,0, 50, &TimerProc);
+    			 hTimer=SetTimer(NULL,0, 100, &TimerProc);
     			 pButtonStartPause->setCaption("Пауза");
     		}
     		else if ((HWND)lParam == pButtonStartPause->GetHWNDElement() && hTimer!=NULL)

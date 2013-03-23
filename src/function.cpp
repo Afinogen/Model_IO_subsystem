@@ -231,7 +231,8 @@ char *DoubleToChar(double num)
 
 	char wholeNumStr[10]={'\0'};
 	char decNumStr[10]={'\0'};
-	char numStr[17]={'\0'};
+	char *numStr=new char[17];//={'\0'};
+	numStr[0]='\0';
 	itoa(wholeNum, wholeNumStr, 10);
 	itoa(decimalNum, decNumStr, 10);
 	strcpy(numStr, wholeNumStr);
